@@ -124,20 +124,21 @@ router.get('/success-info', function (req, res) {
 
 
 
-router.post('/email-appdate', function (req, res) {
-
-  const { email, password, id } = req.body
+router.post('/user-update', function (req, res) {
+  const { email, password, id } = req.body;
   let result = false;
-  console.log(email,password,id)
 
-  const user = User.getById(Number(ids))
-  if(user.verifyPassword(password)) {
-    User.update(user, {email})
+  const user = User.getById(Number(id));
+
+  if (user && user.verifyPassword(password)) {
+    User.update(user, { email });
     result = true;
   }
- res.render('success-info', {
-   style: 'success-info',
-   info: result ? 'Емфил почты обновлен' : 'Error'
- })
-})
+
+  res.render('success-info', {
+    style: 'success-info',
+    info: result ? 'Email updated' : 'Error',
+  });
+});
+
 module.exports = router
