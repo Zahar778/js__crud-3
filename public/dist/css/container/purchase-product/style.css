@@ -1,9 +1,10 @@
 /* Error: Can't find stylesheet to import.
  *   ,
- * 3 | @use '../../component/purchase-producr/style.scss' as purchaseProducr;
- *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ * 1 | @use '../..lib/service.scss' as s;
+ *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *   '
- *   src\container\purchase-product\style.scss 3:1  root stylesheet */
+ *   src\component\field\style.scss 1:1             @use
+ *   src\container\purchase-product\style.scss 5:1  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -13,5 +14,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 3 \2502  @use '../../component/purchase-producr/style.scss' as purchaseProducr;\d\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   src\\container\\purchase-product\\style.scss 3:1  root stylesheet";
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @use '../..lib/service.scss' as s;\d\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   src\\component\\field\\style.scss 1:1             @use\a   src\\container\\purchase-product\\style.scss 5:1  root stylesheet";
 }

@@ -52,7 +52,77 @@ class Product {
     return shuffledList.slice(0 , 3)
   }
 }
+Product.add(
+  '../img/purchare/image-616.jpg',
+  `Комп'ютер Artline Gaming (X43v31) AMD Ryzen 5 3600/`,
+  `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 16 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  10,
+)
 
+Product.add(
+  '/../img/purchare/image-617.jpg',
+  `Комп'ютер COBRA Advanced (I11F.8.H1S2.15T.13356) Intel`,
+  `Intel Core i3-10100F (3.6 - 4.3 ГГц) / RAM 8 ГБ / HDD 1 ТБ + SSD 240 ГБ / GeForce GTX 1050 Ti, 4 ГБ / без ОД / LAN / Linux`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  5,
+)
+
+Product.add(
+  '/../img/purchare/image-618.jpg',
+  `Комп'ютер ARTLINE Gaming by ASUS TUF v119 (TUFv119)`,
+  `Intel Core i9-13900KF (3.0 - 5.8 ГГц) / RAM 64 ГБ / SSD 2 ТБ (2 x 1 ТБ) / nVidia GeForce RTX 4070 Ti, 12 ГБ / без ОД / LAN / Wi-Fi / Bluetooth / без ОС`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  8,
+)
+
+Product.add(
+  '/../img/purchare/image-616.jpg',
+  `Комп'ютер Artline Gaming (X43v31) AMD Ryzen 5 3600/`,
+  `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 16 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  8,
+)
+
+Product.add(
+  '/../img/purchare/image-617.jpg',
+  `Комп'ютер COBRA Advanced (I11F.8.H1S2.15T.13356) Intel`,
+  `Intel Core i3-10100F (3.6 - 4.3 ГГц) / RAM 8 ГБ / HDD 1 ТБ + SSD 240 ГБ / GeForce GTX 1050 Ti, 4 ГБ / без ОД / LAN / Linux`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  6,
+)
+
+Product.add(
+  '/../img/purchare/image-618.jpg',
+  `Комп'ютер ARTLINE Gaming by ASUS TUF v119 (TUFv119)`,
+  `Intel Core i9-13900KF (3.0 - 5.8 ГГц) / RAM 64 ГБ / SSD 2 ТБ (2 x 1 ТБ) / nVidia GeForce RTX 4070 Ti, 12 ГБ / без ОД / LAN / Wi-Fi / Bluetooth / без ОС`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  4,
+)
 
 
 
@@ -132,6 +202,22 @@ router.get('/purchase-product', function (req, res) {
     // },
   })
   // ↑↑ сюди вводимо JSON дані
+})
+
+router.post('/purchase-create', function(req , res) {
+  const id = Number(req.query.id)
+  const amount = Number(req.body.amount)
+
+  console.log(id,amount)
+
+  res.render('purchase-product', {
+    style: 'purchase-product',
+
+    data: {
+      list: Product.getRandomList(id),
+      product: Product.getById(id),
+    }
+  })
 })
 
 

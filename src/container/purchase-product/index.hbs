@@ -4,13 +4,26 @@
  }}
 
 <main class="main">
-    {{> heading title="Товары" info="Компы - Ноуты - нетопы - моноблоки"}}
+    {{> heading title="Другие Товары" info="Компы - Ноуты - нетопы - моноблоки"}}
 
-    <div class="product-list">
-        {{#each data.list}}
-        {{> purchase-product data=this  }}
+    {{#with data.product}}
+    <form method="POST" action="/purchase-create?id={{id}}">
+    <div class="product-info">
+        <img src="{{img}}" alt="{{title}}" class="product-info__image">
+        <h2 class="product-info__title">{{title}}</h2>
+        <p class="product-info__subtitle">{{description}}</p>
+        {{>divider}}
+        {{#each category}}
+        <span class="product-info__category product-info__category--{{id}}">{{text}}</span>
         {{/each}}
+        {{>divider}}
+
+        {{>field label="Колчисетво" type="number" name="amount" value="1"}}
+
+        <button class="product-info__button" href="/purchase-product?id={{id}}">Купить сейчас</button>
     </div>
+    </form>
+    {{/with}}
  </main>
 
 {{! 

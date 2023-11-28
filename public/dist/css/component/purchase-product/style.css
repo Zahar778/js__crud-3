@@ -32,11 +32,13 @@
 .product-card__category--1 {
   border-color: blue;
   color: blue;
+  padding: 12px;
 }
 
 .product-card__category--2 {
   border-color: green;
   color: green;
+  padding: 12px;
 }
 
 .product-card__button {
