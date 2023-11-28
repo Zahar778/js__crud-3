@@ -81,7 +81,7 @@ router.get('/', function (req, res) {
 // ================================================================
 router.get('/purchase-index', function (req, res) {
   // res.render генерує нам HTML сторінку
-
+  
 
   // ↙️ cюди вводимо назву файлу з сontainer
   res.render('purchase-index', {
@@ -106,7 +106,33 @@ router.get('/purchase-index', function (req, res) {
   // ↑↑ сюди вводимо JSON дані
 })
 
+// ================================================================
+router.get('/purchase-product', function (req, res) {
+  const id = Number(req.query.id)  
 
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-product', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-product',
+
+
+    data: {
+      list: Product.getRandomList(id),
+      product: Product.getById(id),
+    },
+    // data: {
+    //   img: 'https://picsum.phothos/200/300',
+    //   title: 'Компьютер Artline Gaming (X43v31) AMD Ryzen 5 3600/',
+    //   description: 'AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 16 гб / HHD 1ТБ + SSD 480 Гб',
+    //   category: [
+    //     { id: 1, text: 'Готовый к Отправке'},
+    //     { id: 2, text: 'Топ продаж'},
+    //   ],
+    //   price: 27000
+    // },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
 
 
 module.exports = router
