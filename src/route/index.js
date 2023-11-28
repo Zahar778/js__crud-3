@@ -5,61 +5,52 @@ const router = express.Router()
 
 // ================================================================
 
-class User {
+class Product {
   static #list = []
 
-  constructor(email, login, password) {
-    this.email = email;
-    this.login = login;
-    this.password = password;
-    this.id = new Date().getTime()
+  static #count = 0
+
+  constructor( img, title, description, category, price) {
+    this.id = ++Product.#count // Генерирует уникальный айди
+    this.img = img
+    this.title = title
+    this.description = description
+    this.category = category
+    this.price = price
   }
 
-  verifyPassword = (password) => this.password === password
+  static add = (
+    img,
+    title,
+    description,
+    category,
+    price,
+  ) => {
+    const newProduct = new Product ( 
+      img,
+      title,
+      description,
+      category,
+      price,
+    )
 
-  
-
-  static add = (user) => {
-    this.#list.push(user)
+    this.#list.push(newProduct)
   }
-
-  static getList = () => this.#list
-  
-
-  static getById = (id) => 
-    this.#list.find((user) => user.id === id)
-  
-    static deleteById = (id) => {
-      const index = this.#list.findIndex(
-        (user) => user.id === id,
-      )
-
-      if(index !== -1) {
-        this.#list.splice(index,1)
-        return true
-      }else {
-        return false
-      }
-    }
-
-
-    static updateById = (id, {email}) => {
-      const user = this.getById(id)
-
-      if(user) {
-        this.update(user, data)
-        return true;
-      }else{
-        return false;
-      }
-    }
-
-
-    static update = ( user, {email}) => {
-      if(email) {
-        user.email = email
-      }
-    }
+  static getList = () => {
+    return this.#list
+  }
+  static getById = (id) => {
+    return this.#list.find((product) => product.id === id)
+  }
+  static getRandomList = (id) => {
+    const filteredList = this.#list.filter (
+      (product) => product.id !== id,
+    )
+    const shuffledList = filteredList.sort(
+      () => Math.random() - 0.5,
+    )
+    return shuffledList.slice(0 , 3)
+  }
 }
 
 
@@ -72,73 +63,50 @@ class User {
 router.get('/', function (req, res) {
   // res.render генерує нам HTML сторінку
 
-  const list = User.getList()
 
   // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('index', {
+  res.render('alert', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'index',
+    style: 'alert',
 
     data: {
-      users:{
-        list,
-        isEmpty: list.length === 0,
-      }, 
+      message: 'Опреция успешна',
+      info: 'Товар Создан',
+      link: '/purchase-index',
     },
   })
   // ↑↑ сюди вводимо JSON дані
 })
 
 // ================================================================
-router.post('/success-info', function (req, res) {
-
-   const {email, login, password} = req.body
-
-   const user = new User(email, login, password);
-
-   User.add(user)
-
-   console.log(User.getList())
+router.get('/purchase-index', function (req, res) {
+  // res.render генерує нам HTML сторінку
 
 
-  res.render('success-info', {
-    style: 'success-info',
-    info: 'пользователь создан'
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-index', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-index',
+
+
+    data: {
+      list: Product.getList(),
+    },
+    // data: {
+    //   img: 'https://picsum.phothos/200/300',
+    //   title: 'Компьютер Artline Gaming (X43v31) AMD Ryzen 5 3600/',
+    //   description: 'AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 16 гб / HHD 1ТБ + SSD 480 Гб',
+    //   category: [
+    //     { id: 1, text: 'Готовый к Отправке'},
+    //     { id: 2, text: 'Топ продаж'},
+    //   ],
+    //   price: 27000
+    // },
   })
-})
-
-
-router.get('/success-info', function (req, res) {
-
-  const { id } = req.query
-
-  User.deleteById(Number(id))
-
-
-
- res.render('success-info', {
-   style: 'success-info',
-   info: 'пользователь удалён'
- })
+  // ↑↑ сюди вводимо JSON дані
 })
 
 
 
-router.post('/user-update', function (req, res) {
-  const { email, password, id } = req.body;
-  let result = false;
-
-  const user = User.getById(Number(id));
-
-  if (user && user.verifyPassword(password)) {
-    User.update(user, { email });
-    result = true;
-  }
-
-  res.render('success-info', {
-    style: 'success-info',
-    info: result ? 'Email updated' : 'Error',
-  });
-});
 
 module.exports = router
