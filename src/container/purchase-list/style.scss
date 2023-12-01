@@ -4,7 +4,23 @@
 @use '../../component/purchase-product/style.scss' as purchaseProducr;
 @use '../../component/field/style.scss' as fieled;
 @use '../../component/divider/style.scss' as divider;
+@use '../../component/button/style.scss' as button;
 
+
+
+.row {
+    display: flex;
+    gap: 20px;
+
+}
+.rwo_2 {
+    display: flex;
+    gap: 20px;
+}
+.titel {
+    display: flex;
+    flex-direction: row;
+}
 
 .main {
     display: flex;
@@ -72,6 +88,4 @@
     &:hover {
         opacity: 0.7;
     }
-
-
 }

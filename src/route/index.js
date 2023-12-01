@@ -122,7 +122,7 @@ class Purchase {
   static #list = []
 
   static #bonusAccount = new Map()
-
+  
   static getBonusBalance = (email) => {
     return Purchase.#bonusAccount.get(email) || 0
   }
@@ -182,13 +182,13 @@ class Purchase {
   }
 
   static getList = () => {
-    return Purchase.#list.reverse().map(({id,title,totalPrice,bonus})=> {
-      this.id = id
-      this.title = title
-      this.totalPrice = totalPrice
-      this.bonus = bonus
-    })
-  }
+    return Purchase.#list.reverse().map(({ id, title , totalPrice, bonus }) => ({
+      id,
+      title,
+      totalPrice,
+      bonus
+  }));
+}
   static getById = (id) => {
     return Purchase.#list.find((item) => item.id === id)
   }
@@ -322,57 +322,64 @@ router.get('/purchase-product', function (req, res) {
 
 
 
-
-router.post('/purchase-create', function(req , res) {
+router.post('/purchase-submit', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  // console.log(req.query)
+  // console.log(req.body)
   const id = Number(req.query.id)
-  
+
   let {
     totalPrice,
     productPrice,
     deliveryPrice,
     amount,
 
-    firsname,
+    firstname,
     lastname,
     email,
     phone,
+    comment,
+    delivery,
 
     promocode,
     bonus,
-  } = req.body 
+  } = req.body
 
   const product = Product.getById(id)
 
-  if(!product) {
+  if (!product) {
     return res.render('alert', {
       style: 'alert',
-  
+      component: ['button', 'heading'],
+
       data: {
-        message: 'Ошибка',
-        info: "Не коректное количество товара",
-        link: `/purchase-product?id=${id}`,
+        link: '/purchase-list',
+        title: 'Помилка',
+        info: 'Товар не знайдено',
       },
-    }) 
+    })
   }
-  if(product.amount < amount) {
+
+  if (product.amount < amount) {
     return res.render('alert', {
       style: 'alert',
-  
+      component: ['button', 'heading'],
+
       data: {
-        message: 'Ошибка',
-        info: "Нет на складе",
-        link: `/purchase-product?id=${id}`,
+        link: '/purchase-list',
+        title: 'Помилка',
+        info: 'Товару немає в потрібній кількості',
       },
-    }) 
+    })
   }
+
   totalPrice = Number(totalPrice)
   productPrice = Number(productPrice)
   deliveryPrice = Number(deliveryPrice)
   amount = Number(amount)
   bonus = Number(bonus)
 
-
-  if(
+  if (
     isNaN(totalPrice) ||
     isNaN(productPrice) ||
     isNaN(deliveryPrice) ||
@@ -381,120 +388,159 @@ router.post('/purchase-create', function(req , res) {
   ) {
     return res.render('alert', {
       style: 'alert',
-  
+      component: ['button', 'heading'],
+
       data: {
-        message: 'Ошибка',
-        info: "Такого количества товара нет на складе",
-        link: `/purchase-list`,
+        link: '/purchase-list',
+        title: 'Помилка',
+        info: 'Некорректні данні',
       },
     })
   }
-  if (!firsname || !lastname || !email || !phone) {
+
+  if ((!firstname, !lastname, !email, !phone, !delivery)) {
     return res.render('alert', {
       style: 'alert',
+      component: ['button', 'heading'],
 
       data: {
-        message: 'Заполните обязательные поля',
-        info: "Некоректные данные",
-        link: `/purchase-list`,
+        link: '/purchase-list',
+        title: "Заповніть обов'язкові поля",
+        info: 'Некорректні данні',
       },
     })
   }
 
-  if(bonus || bonus > 0 ) {
+  if (bonus || bonus > 0) {
     const bonusAmount = Purchase.getBonusBalance(email)
 
     console.log(bonusAmount)
 
-    if(bonus > bonusAmount) {
+    if (bonus > bonusAmount) {
       bonus = bonusAmount
     }
 
-    Purchase.updateBonusBalance(email,totalPrice,bonus)
+    Purchase.updateBonusBalance(email, totalPrice, bonus)
+
     totalPrice -= bonus
   } else {
-    Purchase.updateBonusBalance(email, totalPrice, 0 )
+    Purchase.updateBonusBalance(email, totalPrice, 0)
   }
 
-  if(promocode) {
+  if (promocode) {
     promocode = Promocode.getByName(promocode)
-    if(promocode) {
+
+    if (promocode) {
       totalPrice = Promocode.calc(promocode, totalPrice)
     }
   }
-  if (totalPrice < 0 ) totalPrice = 0
 
-  const purchase = Purchase.add (
+  if (totalPrice < 0) totalPrice = 0
+
+  const purchase = Purchase.add(
     {
       totalPrice,
       productPrice,
       deliveryPrice,
       amount,
-      bonus,
 
-      firsname,
+      firstname,
       lastname,
       email,
       phone,
-      amount,
 
       promocode,
+      bonus,
+      comment,
+      delivery,
     },
     product,
   )
-  console.log(purchase)
-    
-    res.render('alert', {
-      style: 'alert',
 
-      data: {
-        message: "Успешно!",
-        info: "Заказ создан",
-        link: "/purchase-list",
-      },
-    })
-})
-  if (Product.amount < 1) {
-  return res.render ('alert', {
+  console.log(purchase)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('alert', {
     style: 'alert',
+    component: ['button', 'heading'],
+
     data: {
-      message: "Ошибка",
-      info: "Такого количества товара нет в наличие",
-      link: `/purchase-product?id=${id}`,
+      link: '/purchase-list',
+      title: 'Успішне виконання дії',
+      info: 'Замовлення створене',
     },
   })
-}
-// console.log(Product, amount)
+  // ↑↑ сюди вводимо JSON дані
 
-// const amount = Number(req.query.id)
-const productPrice = Product.price * amount
-const totalPrice = productPrice + Purchase.DELIVERY_PRICE;
-const bonus = Purchase.tcalcBonusAmount(totalPrice)
+})
+router.post('/purchase-create', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  const id = Number(req.query.id)
+  const amount = Number(req.body.amount)
 
+  if (amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+      component: ['button', 'heading'],
 
-res.render('purchase-create', {
-  style: 'purchase-create',
-
-  data: {
-    id: Product.id,
-
-    cart: [
-      {
-        text:` ${product.title} (${amount} шт) `,
-        price: productPrice,
-      
+      data: {
+        link: `/purchase-product?id=${id}`,
+        title: 'Помилка',
+        info: 'Некоректна кількість товару',
       },
-      {
-        text:` Доставка `,
-        price: Purchase.DELIVERY_PRICE, 
+    })
+  }
+
+  const product = Product.getById(id)
+
+  if (product.amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+      component: ['button', 'heading'],
+
+      data: {
+        link: `/purchase-product?id=${id}`,
+        title: 'Помилка',
+        info: 'Такої кількості товару немає в намявнсисті',
       },
-    ],
-    totalPrice,
-    productPrice,
-    deliveryPrice: Purchase.DELIVERY_PRICE,
-    amount,
-    bonus,
-  },
+    })
+  }
+
+  console.log(product, amount)
+
+  const productPrice = product.price * amount
+  const totalPrice = productPrice + Purchase.DELIVERY_PRICE
+  const bonus = Purchase.calcBonusAmount(totalPrice)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-create', {
+    style: 'purchase-create',
+    component: ['divider', 'field', 'button', 'heading'],
+
+    data: {
+      title: 'Ваше замовлення',
+      subtitle: 'Оформлення замовлення',
+
+      id: product.id,
+
+      cart: [
+        {
+          text: `${product.title} (${amount} шт)`,
+          price: product.price,
+        },
+        {
+          text: 'Вартість доставки',
+          price: Purchase.DELIVERY_PRICE,
+        },
+      ],
+      totalPrice,
+      productPrice,
+      amount,
+      bonus,
+      deliveryPrice: Purchase.DELIVERY_PRICE,
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
 })
 
 router.post('/purchase-submit' , function (req, res) {
@@ -512,5 +558,98 @@ router.post('/purchase-submit' , function (req, res) {
   })
 })
 
+router.post('/purchase-create', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  const id = Number(req.query.id)
+  const amount = Number(req.body.amount)
+
+  if (amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+      component: ['button', 'heading'],
+
+      data: {
+        link: `/purchase-product?id=${id}`,
+        title: 'Помилка',
+        info: 'Некоректна кількість товару',
+      },
+    })
+  }
+
+  const product = Product.getById(id)
+
+  if (product.amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+      component: ['button', 'heading'],
+
+      data: {
+        link: `/purchase-product?id=${id}`,
+        title: 'Помилка',
+        info: 'Такої кількості товару немає в намявнсисті',
+      },
+    })
+  }
+
+  console.log(product, amount)
+
+  const productPrice = product.price * amount
+  const totalPrice = productPrice + Purchase.DELIVERY_PRICE
+  const bonus = Purchase.calcBonusAmount(totalPrice)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-create', {
+    style: 'purchase-create',
+    component: ['divider', 'field', 'button', 'heading'],
+
+    data: {
+      title: 'Ваше замовлення',
+      subtitle: 'Оформлення замовлення',
+
+      id: product.id,
+
+      cart: [
+        {
+          text: `${product.title} (${amount} шт)`,
+          price: product.price,
+        },
+        {
+          text: 'Вартість доставки',
+          price: Purchase.DELIVERY_PRICE,
+        },
+      ],
+      totalPrice,
+      productPrice,
+      amount,
+      bonus,
+      deliveryPrice: Purchase.DELIVERY_PRICE,
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+router.get('/purchase-list', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  // console.log(bonus)
+
+  const list = Purchase.getList()
+  console.log('purchase-list:', list)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-list', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-list',
+    component: ['heading', 'purchase-item', 'divider'],
+    title: 'Мої замовлення',
+
+    data: {
+      purchases: {
+        list,
+      },
+      // bonus, // Отримати bonusAmount з параметрів URL
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
 
 module.exports = router

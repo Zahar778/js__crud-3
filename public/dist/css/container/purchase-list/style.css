@@ -111,6 +111,21 @@
   height: 1px;
 }
 
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.rwo_2 {
+  display: flex;
+  gap: 20px;
+}
+
+.titel {
+  display: flex;
+  flex-direction: row;
+}
+
 .main {
   display: flex;
   flex-direction: column;
