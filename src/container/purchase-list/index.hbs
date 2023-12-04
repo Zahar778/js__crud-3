@@ -1,8 +1,9 @@
+<h1 class="title_h1">{{title}}</h1>
 {{#with data.purchases}}
- {{!-- {{#each list}} --}}
+ {{#each list}}
 <a href='/purchase-info?id={{id}}' class="linck">
   <div class='purchase-item'>
-    <h1 class="title_h1">{{title}}</h1>
+    
     <div class='purchase-item__block'>
       <span class='title'>ID: {{id}}</span>
     </div>
@@ -20,7 +21,8 @@
     </div>
   </div>
 </a>
-{{>divider}}
 
-      {{!-- {{/each}} --}}
+
+      {{/each}}
     {{/with}}
+    {{>divider}}

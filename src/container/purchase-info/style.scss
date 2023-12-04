@@ -8,26 +8,23 @@
 
 
 
-
-.purchase-item {
-    margin-top: 75px;
-    margin-left: 75px;
-}
-
-.title_h1 {
+.title {
     display: flex;
-    text-align: center;
+    justify-content: center;
+    margin-top: 70px;
+    justify-content: space-around;
 }
-.purchase-item {
+.title_id {
     display: flex;
-    gap: 150px;
-}
-.title{
-    display: flex;
-    align-items: center;
+    margin-top: 20px;
     margin-bottom: 15px;
-    color: rgb(155, 155, 155);
+    justify-content: center;
 }
-.linck {
-    text-decoration: none;
+
+.purchase-item__contact {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    
 }

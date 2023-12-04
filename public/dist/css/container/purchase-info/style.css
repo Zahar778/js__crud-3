@@ -111,30 +111,25 @@
   height: 1px;
 }
 
-.purchase-item {
-  margin-top: 75px;
-  margin-left: 75px;
-}
-
-.title_h1 {
-  display: flex;
-  text-align: center;
-}
-
-.purchase-item {
-  display: flex;
-  gap: 150px;
-}
-
 .title {
   display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  color: rgb(155, 155, 155);
+  justify-content: center;
+  margin-top: 70px;
+  justify-content: space-around;
 }
 
-.linck {
-  text-decoration: none;
+.title_id {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.purchase-item__contact {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 /*# sourceMappingURL=style.css.map */

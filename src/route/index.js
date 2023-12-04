@@ -481,7 +481,7 @@ router.post('/purchase-submit', function (req, res) {
     })
   }
 
-  if ((!firstname, !lastname, !email, !phone, !delivery)) {
+  if ((!firstname, !lastname, !email, !phone)) {
     return res.render('alert', {
       style: 'alert',
       component: ['button', 'heading'],
@@ -578,7 +578,6 @@ router.get('/purchase-list', function (req, res) {
     data: {
       purchases: {
         list,
-        // bonus
       },
       // bonus, // Отримати bonusAmount з параметрів URL
     },
@@ -606,6 +605,7 @@ router.get('/purchase-info', function (req, res) {
     component: ['heading', 'divider', 'button'],
 
     title: 'Інформація про замовлення',
+    
 
     data: {
       id: purchase.id,
@@ -619,6 +619,7 @@ router.get('/purchase-info', function (req, res) {
       deliveryPrice: purchase.deliveryPrice,
       totalPrice: purchase.totalPrice,
       bonus: bonus,
+      comment: purchase.comment,
     },
   })
   // ↑↑ сюди вводимо JSON дані
@@ -709,19 +710,6 @@ router.post('/purchase-edit', function (req, res) {
         },
       })
     }
-  } else {
-    // Якщо оновлення не вдалося (наприклад, товару з таким id не існує),
-    // відображаємо повідомлення про помилку
-    res.render('alert', {
-      style: 'alert',
-      component: ['button', 'heading'],
-
-      data: {
-        link: '/purchase-list',
-        title: 'Помилка',
-        info: 'Не вдалося оновити товар',
-      },
-    })
   }
 })
 
@@ -742,6 +730,30 @@ router.get('/alert', function (req, res) {
       link: '/purchase-product',
       title: 'Успішне виконання дії',
       info: 'Товар успішно оновлено',
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+router.post ('/purchase-change', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  // console.log(bonus)
+
+  const list = Purchase.getList()
+  console.log('purchase-change:', list)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-change', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-change',
+    component: ['heading', 'purchase-item', 'divider'],
+    title: 'Редактировать замовлення',
+
+    data: {
+      purchases: {
+        list,
+      },
+      // bonus, // Отримати bonusAmount з параметрів URL
     },
   })
   // ↑↑ сюди вводимо JSON дані

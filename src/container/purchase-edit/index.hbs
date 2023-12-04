@@ -1,0 +1,48 @@
+<main class="main">
+    <section>
+        <h1 class="form__title">Редактировать товар</h1>
+
+            {{#with data}}
+           
+      <form method="POST" action="/product-edit?id{{id}}">
+        <div class="form__content">
+          <div class="form__row">
+            <div class="form__field">
+              <label for="firstname" class="form__label">{{firstname}}</label>
+              <input type="text" name="firstname" class="form__input" value="{{firstname}}">
+            </div>
+            <div class="form__field">
+              <label for="lastname" class="form__label">{{lastname}}</label>
+              <input type="text" name="lastname" class="form__input" value="{{lastname}}">
+            </div>
+            <div class="form__field">
+              <label for="id" class="form__label">{{id}}</label>
+              <input type="number" name="id" class="form__input" value="{{id}}">
+            </div>
+             <div class="form__field">
+              <label for="phone" class="form__label">{{phone}}</label>
+              <input type="number" name="phone" class="form__input" value="{{phone}}">
+            </div>
+            <div class="form__field">
+              <label for="email" class="form__label">{{email}}</label>
+              <input type="text" name="email" class="form__input" value="{{email}}">
+            </div>
+            <div class="form__field">
+              <label for="delivery" class="form__label">{{delivery}}</label>
+              <input type="text" name="delivery" class="form__input" value="{{delivery}}">
+            </div>
+          </div>
+          <div class="form__field">
+            <textarea class="form__input" id="description" name="description" rows="3">{{description}}</textarea>
+            <span class="form__message">Відображається у картці товару</span>
+          </div>
+          <div class="form__row">
+            <button class="form__button">Зберегти оновлення</button>
+            <a href="/product-edit?id={{id}}" class="form__button red">Видалити товар</a>
+          </div>
+        </div>
+      </form>
+        {{/with}}
+
+    </section>
+</main>

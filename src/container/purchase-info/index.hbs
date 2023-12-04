@@ -1,1 +1,36 @@
-Хууувввааафффвыч
+<main class="main">
+    <div class="title">{{title}}</div>
+    {{#with data}}
+    <form action="/purchase-edit?id{{id}}" method="post" class="form-card">
+    <div class="purchase-item">
+        <div class="purchase-item__block">
+            <span class="title_id">ID: </span>
+                <span class="title_id">{{id}}</span>
+        </div>
+        <div class="purchase-item__contact">
+            <span class="name">Ім'я: {{firstname}}</span>
+            <span class="lastname">Прізвище: {{lastname}} </span>
+            </div>
+            <div class="purchase-item__contact">
+            <span class="phone">Телефон:{{phone}}</span>
+            <span class="email">Електронна пошта:{{email}}</span>
+        </div>
+        <div class="purchase-item__contact ">
+            <span class="price">Коментар: {{comment}}</span>
+            <span class="comentar">Назва товару:  {{product}}</span>
+        </div> 
+        <div class="purchase-item__contact ">
+            <span class="total_price"> Вартість товарів: {{productPrice}}</span>
+            <span class="total_price"> Сума до сплати:  {{totalPrice}}</span>
+            </div>
+            <div class="purchase-item__contact ">
+            <span class="cyra"> Вартість доставки: {{deliveryPrice}}</span>
+            <span class="bonus"> Нараховані бонуси: {{bonus}}</span>
+        </div>
+    </div>
+    {{/with}}
+    {{> divider}}
+
+{{> button text="Змінити дані" }}
+    </form>
+</main>
