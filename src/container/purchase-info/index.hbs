@@ -1,7 +1,7 @@
 <main class="main">
     <div class="title">{{title}}</div>
     {{#with data}}
-    <form action="/purchase-edit?id{{id}}" method="post" class="form-card">
+    {{!-- <form action="/purchase-edit?id{{id}}" method="post" class="form-card"> --}}
     <div class="purchase-item">
         <div class="purchase-item__block">
             <span class="title_id">ID: </span>
@@ -31,6 +31,8 @@
     {{/with}}
     {{> divider}}
 
-{{> button text="Змінити дані" }}
-    </form>
+ <a href='/purchase-edit?id={{id}}'>
+            {{> button text="Змінити дані"}}
+          </a>
+    {{!-- </form> --}}
 </main>

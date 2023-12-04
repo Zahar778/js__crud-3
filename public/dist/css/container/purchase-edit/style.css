@@ -111,38 +111,72 @@
   height: 1px;
 }
 
-.purchase-item {
-  margin-top: 75px;
-  margin-left: 75px;
-}
-
-.title_h1 {
+.form {
   display: flex;
-  text-align: center;
+  padding: 16px;
+  flex-direction: column;
+  gap: 32px;
 }
-
-.purchase-item {
+.form__title {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ddd;
+}
+.form__title_tu {
+  font-size: 15px;
+  font-weight: bold;
+  padding-bottom: 4px;
+  margin-bottom: 16px;
+}
+.form__contrnt {
+  display: grid;
+  justify-content: start;
+  gap: 24px;
+}
+.form__field {
   display: flex;
-  gap: 150px;
+  gap: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.form__label {
+  font-size: 14px;
+}
+.form__input {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.form__button {
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 20px;
+  color: #ddd;
 }
 
-.title {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  color: rgb(155, 155, 155);
-}
-
-.linck {
-  text-decoration: none;
-}
-
-.title_h1 {
+main {
   display: flex;
   flex-direction: column;
-  color: 50FF;
-  font-size: xx-large;
-  margin-top: 70px;
+  gap: 40px;
+}
+
+.user-list li {
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.litl_description {
+  font-size: 8px;
+  margin-right: auto;
+  font-weight: bold;
+  color: rgba(28, 29, 29, 0.39);
+  margin-bottom: 8px;
+}
+
+.form__row {
+  display: flex;
 }
 
 /*# sourceMappingURL=style.css.map */
