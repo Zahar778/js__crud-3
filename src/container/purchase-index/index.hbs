@@ -7,7 +7,7 @@
     {{> heading title="Товары" info="Компы - Ноуты - нетопы - моноблоки"}}
 
     <div class="product-list">
-        {{#each data.list}}
+        {{#each data.products}}
         {{> purchase-product data=this  }}
         {{/each}}
     </div>

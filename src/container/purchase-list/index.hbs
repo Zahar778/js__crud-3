@@ -1,15 +1,8 @@
-{{! 
-Це код container файлу для index сторінки, 
-в якому міститься код, котрий буде віддаватися по шляху (PATH) - "/"
- }}
-
-<main class="main">
-    {{> heading title="Мои заказы" }}
-
 {{#with data.purchases}}
-      {{#each list}}
-<a href='/purchase-info?id={id}}'>
+ {{!-- {{#each list}} --}}
+<a href='/purchase-info?id={{id}}' class="linck">
   <div class='purchase-item'>
+    <h1 class="title_h1">{{title}}</h1>
     <div class='purchase-item__block'>
       <span class='title'>ID: {{id}}</span>
     </div>
@@ -27,11 +20,7 @@
     </div>
   </div>
 </a>
-      {{/each}}
-    {{/with}}
-</main>
+{{>divider}}
 
-{{! 
-    Цей код містить лише те, що буде виводитись в <body>
-    Адже наш layout/default.hbs має вже структуру HTML
-}}
+      {{!-- {{/each}} --}}
+    {{/with}}
