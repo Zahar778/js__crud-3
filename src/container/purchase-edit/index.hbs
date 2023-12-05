@@ -27,22 +27,16 @@
               <label for="email" class="form__label">{{email}}</label>
               <input type="text" name="email" class="form__input" value="{{email}}">
             </div>
-            <div class="form__field">
-              <label for="delivery" class="form__label">{{delivery}}</label>
-              <input type="text" name="delivery" class="form__input" value="{{delivery}}">
-            </div>
           </div>
           <div class="form__field">
             <textarea class="form__input" id="description" name="description" rows="3">{{description}}</textarea>
-            <span class="form__message">Відображається у картці товару</span>
+            <span class="form__message">Коментар</span>
           </div>
           <div class="form__row">
-            <button class="form__button">Зберегти оновлення</button>
-            <a href="/product-edit?id={{id}}" class="form__button red">Видалити товар</a>
+            <a href="/alert?id={{id}}" class="form__button red">Змiнити товар</a>
           </div>
         </div>
       </form>
         {{/with}}
-
     </section>
 </main>
