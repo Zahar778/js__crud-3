@@ -4,7 +4,7 @@
 
             {{#with data}}
            
-      <form method="POST" action="/purchase-edit?id{{id}}">
+      <form method="POST" action="/purchase-edit">
         <div class="form__content">
           <div class="form__row">
             <div class="form__field">
@@ -33,7 +33,7 @@
             <span class="form__message">Коментар</span>
           </div>
           <div class="form__row">
-            <a href="/alert?id={{id}}" class="form__button red">Змiнити товар</a>
+           <button class="form__button">Зберегти онорвлення </button>
           </div>
         </div>
       </form>
