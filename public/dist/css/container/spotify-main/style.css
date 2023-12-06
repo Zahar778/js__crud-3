@@ -1,0 +1,145 @@
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.6;
+}
+a:hover {
+  opacity: 0.6;
+}
+
+.main {
+  background-color: #121212;
+  height: 100%;
+  color: #ddd;
+  display: flex;
+  justify-content: center;
+  padding: 24px 8px;
+}
+
+.main__content {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.title--center {
+  text-align: center;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 92px 1fr 42px;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.track__list {
+  display: grid;
+  gap: 28px;
+}
+.track__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.track__name {
+  font-size: 24px;
+  color: #ddd;
+}
+
+.playlist__list {
+  display: grid;
+  gap: 28px;
+}
+.playlist__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.playlist__name {
+  font-size: 24px;
+  color: #ddd;
+}
+.playlist__amount {
+  font-size: 16px;
+  color: rgba(189, 189, 189, 0.7411764706);
+}
+
+.title_me {
+  color: #FFFEFE;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.title_icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon_svg {
+  margin-left: 280px;
+}
+
+.icon_svg_2 {
+  margin-left: 40px;
+}
+
+.one_playlist {
+  display: flex;
+  width: 345px;
+  height: 345px;
+  padding: 88px 88px 87px 87px;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4531F2 0.5%, #CEF4E7 100%);
+}
+
+.playlist {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 30px;
+}
+
+.playlist_name {
+  display: flex;
+  margin-top: -60px;
+  margin-left: 30px;
+  font-size: xx-large;
+}
+
+.screen {
+  width: 345px;
+  height: 345px;
+}
+
+.four_icon {
+  padding: 88px 88px 87px 87px;
+  background: #242424;
+}
+
+.text_title {
+  font-size: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.text_title_two {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  font-size: 20px;
+}
+
+/*# sourceMappingURL=style.css.map */
